@@ -1,0 +1,46 @@
+/* floating chat button, like Vention's bottom-right "Chat" */
+.chat-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-sheen), var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  color: var(--page-fg);
+  font-weight: 700;
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 -1px 0 var(--glass-lowlight),
+    0 10px 30px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.2s var(--ease-out),
+    background-color 0.2s var(--ease-out);
+}
+
+.chat-fab svg {
+  color: #25d366;
+}
+
+.chat-fab:hover {
+  background: var(--glass-sheen), rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .chat-fab {
+    right: 16px;
+    bottom: 16px;
+    padding: 14px;
+  }
+
+  .chat-fab span {
+    display: none;
+  }
+}

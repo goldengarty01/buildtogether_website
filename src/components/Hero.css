@@ -1,0 +1,307 @@
+.hero {
+  /* VS Code "Dark Modern" palette, used only in the hero */
+  --vsc-bg: 31, 31, 31; /* #1f1f1f editor background, as r,g,b for the overlays */
+  --vsc-text: #cccccc;
+  --vsc-dim: #858585; /* line-number grey */
+  --vsc-blue: #0078d4; /* accent */
+  --vsc-keyword: #569cd6;
+  --vsc-control: #c586c0;
+  --vsc-string: #ce9178;
+  --vsc-function: #dcdcaa;
+  --vsc-variable: #9cdcfe;
+  --vsc-type: #4ec9b0;
+
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--nav-height) + 48px) 0 120px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---------- background video ---------- */
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgb(var(--vsc-bg));
+}
+
+.hero__media video,
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+/* darkens the left side for the text with VS Code's charcoal */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(var(--vsc-bg), 0.96) 0%,
+      rgba(var(--vsc-bg), 0.88) 35%,
+      rgba(var(--vsc-bg), 0.35) 65%,
+      rgba(var(--vsc-bg), 0.12) 100%
+    ),
+    linear-gradient(180deg, rgba(var(--vsc-bg), 0.55) 0%, transparent 22%, transparent 70%, var(--page-bg) 100%);
+}
+
+/* ---------- content ---------- */
+
+.hero__content {
+  max-width: var(--container);
+}
+
+.hero__steps {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 0 0 28px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--vsc-text);
+}
+
+.hero__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  animation: fade-up 0.6s var(--ease-out) backwards;
+}
+
+.hero__step svg {
+  color: var(--vsc-dim);
+}
+
+.hero__title {
+  max-width: 780px;
+  margin: 0 0 24px;
+  font-size: clamp(40px, 6.4vw, 84px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.hero__accent {
+  background: linear-gradient(90deg, var(--vsc-keyword), var(--vsc-variable) 55%, var(--vsc-type));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__lead {
+  max-width: 620px;
+  margin: 0 0 40px;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.6;
+  color: var(--vsc-text);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* each step word in a different VS Code syntax colour */
+.hero__step:nth-child(1) {
+  color: var(--vsc-keyword);
+}
+
+.hero__step:nth-child(2) {
+  color: var(--vsc-control);
+}
+
+.hero__step:nth-child(3) {
+  color: var(--vsc-string);
+}
+
+.hero__step:nth-child(4) {
+  color: var(--vsc-function);
+}
+
+.hero__step:nth-child(5) {
+  color: var(--vsc-type);
+}
+
+/* main button: VS Code blue rim and glow instead of orange */
+.hero .btn-primary {
+  border-color: rgba(0, 120, 212, 0.85);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 0 18px rgba(0, 120, 212, 0.3),
+    0 0 22px rgba(0, 120, 212, 0.35),
+    0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+.hero .btn-primary:hover {
+  border-color: #3794ff;
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 0 24px rgba(0, 120, 212, 0.45),
+    0 0 32px rgba(0, 120, 212, 0.5),
+    0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.hero .btn-primary svg {
+  color: var(--vsc-variable);
+}
+
+/* ---------- "works with" rotating line ---------- */
+
+.hero__footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  text-align: center;
+}
+
+.hero__footer p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--vsc-text);
+}
+
+.hero__segment {
+  position: relative;
+  display: inline-block;
+  min-width: 10ch;
+  text-align: left;
+  color: #fff;
+  font-weight: 700;
+}
+
+.hero__segment-word {
+  display: inline-block;
+  animation: segment-in 0.45s var(--ease-out);
+}
+
+.hero__segment-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: var(--vsc-blue);
+  transform-origin: left;
+  animation: segment-bar 2.6s linear;
+}
+
+/* ---------- entrance animations ---------- */
+
+/* 'backwards' fill hides elements during their delay but leaves no animation applied
+   afterwards, which would otherwise stop the glass (backdrop-filter) blurring inside them */
+.reveal {
+  animation: fade-up 0.8s var(--ease-out) backwards;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes segment-in {
+  from {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes segment-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .hero__step,
+  .hero__segment-word {
+    opacity: 1;
+    animation: none;
+  }
+
+  .hero__segment-bar {
+    animation: none;
+  }
+}
+
+/* ---------- mobile ---------- */
+
+@media (max-width: 768px) {
+  .hero {
+    justify-content: flex-end;
+    padding-bottom: 88px;
+  }
+
+  /* keep the subject (right of frame) in view when cropping a landscape clip to portrait */
+  .hero__media video,
+  .hero__media img {
+    object-position: 72% center;
+  }
+
+  /* on portrait video, darken from the bottom up instead of left to right */
+  .hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(var(--vsc-bg), 0.55) 0%,
+      rgba(var(--vsc-bg), 0.35) 25%,
+      rgba(var(--vsc-bg), 0.88) 55%,
+      var(--page-bg) 100%
+    );
+  }
+
+  .hero__steps {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    gap: 6px 10px;
+    padding: 8px 14px;
+    border-radius: 12px;
+  }
+
+  .hero__step {
+    gap: 10px;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* in normal flow on phones so it can't collide with the chat button */
+  .hero__footer {
+    position: static;
+    margin-top: 40px;
+    text-align: left;
+  }
+
+  .hero__footer p {
+    font-size: 15px;
+  }
+}

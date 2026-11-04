@@ -1,0 +1,215 @@
+:root {
+  --navy-950: #070d1a;
+  --navy-900: #0b1324;
+  --navy-800: #121c33;
+  --navy-700: #1c2742;
+  --orange-400: #f4a261;
+  --orange-500: #ee8a3c;
+  --orange-600: #d9732a;
+  --text: #f5f7fb;
+  --text-muted: #c3cad8;
+  --text-subtle: #8c96ab;
+  --border: rgba(255, 255, 255, 0.12);
+
+  --container: 1240px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --nav-height: 76px;
+
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--navy-950);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* page theme: dark by default, flips to light when a light section scrolls in */
+body {
+  --page-bg: var(--navy-900);
+  --page-fg: var(--text);
+  --page-muted: var(--text-muted);
+  --page-border: var(--border);
+  --page-tint: rgba(255, 255, 255, 0.04);
+
+  /* clear "liquid" glass: almost no tint, the colour comes from what's blurred behind it */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-strong: rgba(255, 255, 255, 0.07);
+  --glass-sheen: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 32%,
+    rgba(255, 255, 255, 0) 58%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-highlight: rgba(255, 255, 255, 0.38);
+  --glass-lowlight: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 10px 36px rgba(0, 0, 0, 0.28);
+  --glass-blur: blur(22px) saturate(180%) brightness(1.08);
+
+  margin: 0;
+  background: var(--page-bg);
+  transition: background-color 0.6s var(--ease-out);
+}
+
+body[data-theme='light'] {
+  --page-bg: #f6f7fb;
+  --page-fg: #0f172b;
+  --page-muted: #45556c;
+  --page-border: rgba(15, 23, 43, 0.1);
+  --page-tint: rgba(255, 255, 255, 0.35);
+
+  --glass-bg: rgba(255, 255, 255, 0.16);
+  --glass-bg-strong: rgba(255, 255, 255, 0.28);
+  --glass-sheen: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.15) 35%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-highlight: rgba(255, 255, 255, 1);
+  --glass-lowlight: rgba(15, 23, 43, 0.06);
+  --glass-shadow: 0 10px 36px rgba(15, 23, 43, 0.1);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- glass material ---------- */
+
+.glass {
+  background: var(--glass-sheen), var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  /* bright top edge + faint bottom edge is what makes clear glass read as a raised pane */
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 -1px 0 var(--glass-lowlight),
+    var(--glass-shadow);
+  transition:
+    background-color 0.6s var(--ease-out),
+    border-color 0.6s var(--ease-out),
+    box-shadow 0.6s var(--ease-out);
+}
+
+.glass--strong {
+  background: var(--glass-sheen), var(--glass-bg-strong);
+}
+
+/* browsers without backdrop-filter get a more opaque pane so text stays readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgba(18, 26, 46, 0.85);
+  }
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  background: var(--glass-sheen), var(--glass-bg);
+  color: var(--page-fg);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 -1px 0 var(--glass-lowlight),
+    0 6px 20px rgba(0, 0, 0, 0.18);
+  transition:
+    background-color 0.2s var(--ease-out),
+    border-color 0.2s var(--ease-out),
+    box-shadow 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn svg {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+/* primary: still clear glass, marked out by an orange rim and a soft inner glow instead of a fill */
+.btn-primary {
+  border-color: rgba(244, 162, 97, 0.75);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 0 18px rgba(238, 138, 60, 0.28),
+    0 0 22px rgba(238, 138, 60, 0.28),
+    0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+.btn-primary svg {
+  color: var(--orange-400);
+}
+
+.btn-primary:hover {
+  border-color: var(--orange-400);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 0 24px rgba(238, 138, 60, 0.4),
+    0 0 32px rgba(238, 138, 60, 0.45),
+    0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.btn-outline:hover {
+  background: var(--glass-sheen), rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange-400);
+  outline-offset: 3px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: var(--nav-height);
+}

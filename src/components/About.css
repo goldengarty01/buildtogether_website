@@ -1,0 +1,237 @@
+.about {
+  color: var(--page-fg);
+}
+
+/* ---------- intro ---------- */
+
+.about__intro {
+  padding: calc(var(--nav-height) + 96px) 0 40px;
+}
+
+.about__kicker {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange-400);
+}
+
+.about__title {
+  max-width: 820px;
+  margin: 0 0 24px;
+  font-size: clamp(38px, 5.4vw, 72px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.about__title span {
+  background: linear-gradient(90deg, var(--orange-500), var(--orange-400) 60%, #ffc89a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.about__lead {
+  max-width: 680px;
+  margin: 0;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.6;
+  color: var(--page-muted);
+}
+
+/* ---------- founders ---------- */
+
+.founder {
+  padding: 72px 0;
+}
+
+.founder__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(36px, 6vw, 88px);
+}
+
+.founder--flip .founder__photo {
+  order: 2;
+}
+
+.founder__photo {
+  position: relative;
+  margin: 0;
+}
+
+/* colour glow behind the photo for the glass frame to pick up */
+.founder__glow {
+  position: absolute;
+  inset: 6% -4% 0;
+  z-index: -1;
+  border-radius: 40%;
+  background:
+    radial-gradient(50% 50% at 25% 30%, var(--g1), transparent 70%),
+    radial-gradient(50% 50% at 75% 75%, var(--g2), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.55;
+}
+
+/* the photo sits in a clear glass frame, like a print behind glass */
+.founder__frame {
+  padding: 10px;
+  border-radius: 24px;
+}
+
+.founder__frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 6 / 7;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: 16px;
+}
+
+.founder__tag {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  /* readable over any part of the photo */
+  background: var(--glass-sheen), rgba(10, 16, 30, 0.35);
+  color: #fff;
+}
+
+.founder__tag strong {
+  font-size: 16px;
+}
+
+.founder__tag span {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.founder__text h2 {
+  margin: 0 0 20px;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.founder__text h2 span {
+  color: var(--orange-400);
+}
+
+.founder__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.founder__chips li {
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--page-fg);
+}
+
+.founder__text p {
+  margin: 0 0 16px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--page-muted);
+}
+
+.founder__text p:last-child {
+  margin-bottom: 0;
+  color: var(--page-fg);
+  font-weight: 500;
+}
+
+/* ---------- call to action ---------- */
+
+.about__cta {
+  padding: 56px 0 140px;
+}
+
+.about__cta-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: 24px;
+}
+
+.about__cta h2 {
+  margin: 0 0 8px;
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.about__cta p {
+  margin: 0;
+  font-size: 17px;
+  color: var(--page-muted);
+}
+
+.about__cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.about__cta-actions .btn-primary svg {
+  color: #25d366;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 960px) {
+  .founder__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .founder--flip .founder__photo {
+    order: 0;
+  }
+
+  .founder__photo {
+    max-width: 480px;
+  }
+
+  .about__cta-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .about__intro {
+    padding-top: calc(var(--nav-height) + 48px);
+  }
+
+  .founder {
+    padding: 48px 0;
+  }
+
+  .founder__text p {
+    font-size: 16px;
+  }
+
+  .about__cta-actions,
+  .about__cta-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
